@@ -37,3 +37,9 @@ npm-debug.log
 
 # The default location of the generated database cluster.
 /data/
+
+# Directory used by `direnv` to hold `use flake`-generated profiles.
+/.direnv/
+
+# A symlink produced by default when running `nix build`.
+/result
