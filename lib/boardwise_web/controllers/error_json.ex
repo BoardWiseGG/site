@@ -1,4 +1,4 @@
-defmodule SiteWeb.ErrorJSON do
+defmodule BoardWiseWeb.ErrorJSON do
   # If you want to customize a particular status code,
   # you may add your own clauses, such as:
   #

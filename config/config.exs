@@ -7,20 +7,21 @@
 # General application configuration
 import Config
 
-config :site,
-  ecto_repos: [Site.Repo],
+config :boardwise,
+  namespace: BoardWise,
+  ecto_repos: [BoardWise.Repo],
   generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
-config :site, SiteWeb.Endpoint,
+config :boardwise, BoardWiseWeb.Endpoint,
   url: [host: "localhost"],
   adapter: Phoenix.Endpoint.Cowboy2Adapter,
   render_errors: [
-    formats: [html: SiteWeb.ErrorHTML, json: SiteWeb.ErrorJSON],
+    formats: [html: BoardWiseWeb.ErrorHTML, json: BoardWiseWeb.ErrorJSON],
     layout: false
   ],
-  pubsub_server: Site.PubSub,
-  live_view: [signing_salt: "Wq4i8F/W"]
+  pubsub_server: BoardWise.PubSub,
+  live_view: [signing_salt: "NutZSMRk"]
 
 # Configures the mailer
 #
@@ -29,7 +30,7 @@ config :site, SiteWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :site, Site.Mailer, adapter: Swoosh.Adapters.Local
+config :boardwise, BoardWise.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configure esbuild (the version is required)
 config :esbuild,

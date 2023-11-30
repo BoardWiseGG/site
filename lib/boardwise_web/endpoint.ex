@@ -1,13 +1,13 @@
-defmodule SiteWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :site
+defmodule BoardWiseWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :boardwise
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_site_key",
-    signing_salt: "ywosTGeI",
+    key: "_boardwise_key",
+    signing_salt: "YH8oartu",
     same_site: "Lax"
   ]
 
@@ -19,9 +19,9 @@ defmodule SiteWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :site,
+    from: :boardwise,
     gzip: false,
-    only: SiteWeb.static_paths()
+    only: BoardWiseWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -29,7 +29,7 @@ defmodule SiteWeb.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :site
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :boardwise
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,
@@ -47,5 +47,5 @@ defmodule SiteWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug SiteWeb.Router
+  plug BoardWiseWeb.Router
 end

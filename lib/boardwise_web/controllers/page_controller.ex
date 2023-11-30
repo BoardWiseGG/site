@@ -1,5 +1,5 @@
-defmodule SiteWeb.PageController do
-  use SiteWeb, :controller
+defmodule BoardWiseWeb.PageController do
+  use BoardWiseWeb, :controller
 
   def home(conn, _params) do
     # The home page is often custom made,

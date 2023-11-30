@@ -1,4 +1,4 @@
-defmodule SiteWeb.CoreComponents do
+defmodule BoardWiseWeb.CoreComponents do
   @moduledoc """
   Provides core UI components.
 
@@ -17,7 +17,7 @@ defmodule SiteWeb.CoreComponents do
   use Phoenix.Component
 
   alias Phoenix.LiveView.JS
-  import SiteWeb.Gettext
+  import BoardWiseWeb.Gettext
 
   @doc """
   Renders a modal.
@@ -659,9 +659,9 @@ defmodule SiteWeb.CoreComponents do
     # with our gettext backend as first argument. Translations are
     # available in the errors.po file (as we use the "errors" domain).
     if count = opts[:count] do
-      Gettext.dngettext(SiteWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(BoardWiseWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(SiteWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(BoardWiseWeb.Gettext, "errors", msg, opts)
     end
   end
 

@@ -1,5 +1,5 @@
-defmodule Site.Repo do
+defmodule BoardWise.Repo do
   use Ecto.Repo,
-    otp_app: :site,
+    otp_app: :boardwise,
     adapter: Ecto.Adapters.Postgres
 end

@@ -32,7 +32,7 @@
       {
         packages = {
           app = mixRelease {
-            pname = "site";
+            pname = "boardwise";
             src = ./.;
             version = "0.1.0";
             mixNixDeps = deps;

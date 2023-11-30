@@ -1,5 +1,5 @@
-defmodule SiteWeb.PageControllerTest do
-  use SiteWeb.ConnCase
+defmodule BoardWiseWeb.PageControllerTest do
+  use BoardWiseWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, ~p"/")

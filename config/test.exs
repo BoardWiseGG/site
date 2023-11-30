@@ -5,23 +5,23 @@ import Config
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
-config :site, Site.Repo,
+config :boardwise, BoardWise.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
-  database: "site_test#{System.get_env("MIX_TEST_PARTITION")}",
+  database: "boardwise_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :site, SiteWeb.Endpoint,
+config :boardwise, BoardWiseWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "T0jFDk3PWnwZCoYdv8l2ZgOk8thliSovjN++aOs6DWMKb7RP6dN+VNR7Ptnja1RW",
+  secret_key_base: "0Nt/alF0NScLRGMz58M9EOaiFrzuQjeMgwTo4QsBpqkJeRMw1MQvG0OIIgTZVEmF",
   server: false
 
 # In test we don't send emails.
-config :site, Site.Mailer, adapter: Swoosh.Adapters.Test
+config :boardwise, BoardWise.Mailer, adapter: Swoosh.Adapters.Test
 
 # Disable swoosh api client as it is only required for production adapters.
 config :swoosh, :api_client, false
