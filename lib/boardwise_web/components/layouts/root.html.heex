@@ -2,9 +2,14 @@
 <html lang="en" class="[scrollbar-gutter:stable]">
   <head>
     <meta charset="utf-8" />
+    <meta
+      name="description"
+      content="BoardWise - Level up your chess game with a world-class coach."
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title suffix=" · Phoenix Framework">
+    <link rel="icon" href={~p"/favicon.ico"} type="image/x-icon" />
+    <.live_title suffix="">
       <%= assigns[:page_title] || "BoardWise" %>
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />

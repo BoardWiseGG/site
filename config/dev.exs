@@ -56,7 +56,7 @@ config :boardwise, BoardWiseWeb.Endpoint,
 config :boardwise, BoardWiseWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg|ico)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/boardwise_web/(controllers|live|components)/.*(ex|heex)$"
     ]
