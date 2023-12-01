@@ -17,7 +17,7 @@ defmodule BoardWiseWeb.Router do
   scope "/", BoardWiseWeb do
     pipe_through :browser
 
-    get "/", SearchController, :index
+    get "/", ReactController, :index
   end
 
   # Other scopes may use custom stacks.

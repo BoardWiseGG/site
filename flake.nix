@@ -44,6 +44,7 @@
           ] ++ (with pkgs; [
             inotify-tools  # For file watching in development.
             mix2nix
+            nodePackages.pnpm
             postgresql_15
           ]);
           shellHook = ''
