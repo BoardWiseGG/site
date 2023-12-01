@@ -1,10 +1,5 @@
 {
-  description = ''
-    An opinionated pheonix flake.
-
-    To generate a copy of this template elsewhere, run:
-    $> bootstrap phoenix
-  '';
+  description = "The BoardWise backend/frontend.";
 
   inputs = {
     flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
@@ -56,7 +51,7 @@
             # environment variable whenever `-D` is not specified (for e.g.
             # `postgres` and `pg_ctl`).
             # https://www.postgresql.org/docs/15/server-start.html
-            export PGDATA="$PWD/data"
+            export PGDATA="$PWD/db"
           '';
         };
       });

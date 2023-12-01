@@ -36,7 +36,7 @@ npm-debug.log
 /assets/node_modules/
 
 # The default location of the generated database cluster.
-/data/
+/db/
 
 # Directory used by `direnv` to hold `use flake`-generated profiles.
 /.direnv/
