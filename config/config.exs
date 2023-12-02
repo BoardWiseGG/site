@@ -60,7 +60,8 @@ config :esbuild,
     ),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
-  ]
+  ],
+  path: System.get_env("MIX_ESBUILD_PATH")
 
 # Configure tailwind (the version is required)
 config :tailwind,
@@ -72,7 +73,8 @@ config :tailwind,
       --output=../priv/static/assets/app.css
     ),
     cd: Path.expand("../assets", __DIR__)
-  ]
+  ],
+  path: System.get_env("MIX_TAILWIND_PATH")
 
 # Configures Elixir's Logger
 config :logger, :console,
