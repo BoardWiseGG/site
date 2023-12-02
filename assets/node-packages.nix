@@ -4,6 +4,15 @@
 
 let
   sources = {
+    "@remix-run/router-1.13.1" = {
+      name = "_at_remix-run_slash_router";
+      packageName = "@remix-run/router";
+      version = "1.13.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@remix-run/router/-/router-1.13.1.tgz";
+        sha512 = "so+DHzZKsoOcoXrILB4rqDkMDy7NLMErRdOxvzvOKb507YINKUP4Di+shbTZDhSE/pBZ+vr7XGIpcOO0VLSA+Q==";
+      };
+    };
     "clsx-2.0.0" = {
       name = "clsx";
       packageName = "clsx";
@@ -49,6 +58,24 @@ let
         sha512 = "6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==";
       };
     };
+    "react-router-6.20.1" = {
+      name = "react-router";
+      packageName = "react-router";
+      version = "6.20.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/react-router/-/react-router-6.20.1.tgz";
+        sha512 = "ccvLrB4QeT5DlaxSFFYi/KR8UMQ4fcD8zBcR71Zp1kaYTC5oJKYAp1cbavzGrogwxca+ubjkd7XjFZKBW8CxPA==";
+      };
+    };
+    "react-router-dom-6.20.1" = {
+      name = "react-router-dom";
+      packageName = "react-router-dom";
+      version = "6.20.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/react-router-dom/-/react-router-dom-6.20.1.tgz";
+        sha512 = "npzfPWcxfQN35psS7rJgi/EW0Gx6EsNjfdJSAk73U/HqMEJZ2k/8puxfwHFgDQhBGmS3+sjnGbMdMSV45axPQw==";
+      };
+    };
     "scheduler-0.23.0" = {
       name = "scheduler";
       packageName = "scheduler";
@@ -65,11 +92,14 @@ let
     version = "0.1.0";
     src = ./.;
     dependencies = [
+      sources."@remix-run/router-1.13.1"
       sources."clsx-2.0.0"
       sources."js-tokens-4.0.0"
       sources."loose-envify-1.4.0"
       sources."react-18.2.0"
       sources."react-dom-18.2.0"
+      sources."react-router-6.20.1"
+      sources."react-router-dom-6.20.1"
       sources."scheduler-0.23.0"
     ];
     buildInputs = globalBuildInputs;
