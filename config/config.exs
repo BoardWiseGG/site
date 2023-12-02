@@ -12,15 +12,24 @@ config :boardwise,
   ecto_repos: [BoardWise.Repo],
   generators: [timestamp_type: :utc_datetime]
 
-# Configures the endpoint
+# https://hexdocs.pm/phoenix/Phoenix.Endpoint.html
 config :boardwise, BoardWiseWeb.Endpoint,
+  # Starts the web server when the endpoint supervision tree starts.
+  server: true,
+  # Configuration for generating URLs throughout the app.
   url: [host: "localhost"],
+  # Which webserver adapter to use for serving web requests.
   adapter: Phoenix.Endpoint.Cowboy2Adapter,
+  # Responsible for rendering templates whenever there is a failure in the
+  # application.
   render_errors: [
     formats: [html: BoardWiseWeb.ErrorHTML, json: BoardWiseWeb.ErrorJSON],
     layout: false
   ],
+  # The name of the pubsub server to use in channels and via the Endpoint
+  # broadcast functions.
   pubsub_server: BoardWise.PubSub,
+  # https://hexdocs.pm/phoenix_live_view/welcome.html
   live_view: [signing_salt: "NutZSMRk"]
 
 # Configures the mailer
@@ -41,8 +50,8 @@ config :esbuild,
   version: "0.17.11",
   default: [
     args: ~w(
-      js/app.js
-      js/react/main.jsx
+      ./js/app.js
+      ./js/react/main.jsx
       --bundle
       --target=es2016
       --outdir=../priv/static/assets
