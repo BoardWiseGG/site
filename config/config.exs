@@ -32,12 +32,23 @@ config :boardwise, BoardWiseWeb.Endpoint,
 # at the `config/runtime.exs`.
 config :boardwise, BoardWise.Mailer, adapter: Swoosh.Adapters.Local
 
-# Configure esbuild (the version is required)
+# Configure esbuild (the version is required). Aim to use the same target as
+# specified in tsconfig.json for ease of understanding. There are cases where
+# esbuild will interpret the tsconfig.json target independently of that
+# specified in this command (e.g. `useDefineForClassFields` as explained in
+# https://esbuild.github.io/content-types/#tsconfig-json).
 config :esbuild,
   version: "0.17.11",
   default: [
-    args:
-      ~w(js/app.js js/react/main.jsx --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+    args: ~w(
+      js/app.js
+      js/react/main.jsx
+      --bundle
+      --target=es2016
+      --outdir=../priv/static/assets
+      --external:/fonts/*
+      --external:/images/*
+    ),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
