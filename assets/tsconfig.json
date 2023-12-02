@@ -3,6 +3,8 @@
   "compilerOptions": {
     // Keep in mind that ES6+ syntax to ES5 is not supported in esbuild yet.
     "target": "es2016",
+    // https://www.typescriptlang.org/docs/handbook/modules/theory.html
+    "module": "nodenext",
     // Even when transpiling a single module, the TypeScript compiler actually
     // parses imported files so it can tell whether an imported name is a type
     // or a value. However, tools like esbuild compile each file in isolation so
@@ -25,6 +27,6 @@
     // calls. It seems like the "react" value mirrors esbuild's native
     // "transform" option, but it isn't obvious how these two relate from the
     // documentation: https://esbuild.github.io/api/#jsx.
-    "jsx": "react"
+    "jsx": "react",
   }
 }

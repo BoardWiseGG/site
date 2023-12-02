@@ -4,6 +4,15 @@
 
 let
   sources = {
+    "clsx-2.0.0" = {
+      name = "clsx";
+      packageName = "clsx";
+      version = "2.0.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/clsx/-/clsx-2.0.0.tgz";
+        sha512 = "rQ1+kcj+ttHG0MKVGBUXwayCCF1oh39BF5COIpRzuCEv8Mwjv0XucrI2ExNTOn9IlLifGClWQcU9BrZORvtw6Q==";
+      };
+    };
     "js-tokens-4.0.0" = {
       name = "js-tokens";
       packageName = "js-tokens";
@@ -56,6 +65,7 @@ let
     version = "0.1.0";
     src = ./.;
     dependencies = [
+      sources."clsx-2.0.0"
       sources."js-tokens-4.0.0"
       sources."loose-envify-1.4.0"
       sources."react-18.2.0"

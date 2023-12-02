@@ -47,7 +47,7 @@ config :boardwise, BoardWise.Mailer, adapter: Swoosh.Adapters.Local
 # specified in this command (e.g. `useDefineForClassFields` as explained in
 # https://esbuild.github.io/content-types/#tsconfig-json).
 config :esbuild,
-  version: "0.17.11",
+  version: "0.19.7",
   default: [
     args: ~w(
       ./js/app.js
@@ -65,7 +65,7 @@ config :esbuild,
 
 # Configure tailwind (the version is required)
 config :tailwind,
-  version: "3.3.2",
+  version: "3.3.5",
   default: [
     args: ~w(
       --config=tailwind.config.js
