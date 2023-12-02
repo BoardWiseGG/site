@@ -27,6 +27,6 @@
     // calls. It seems like the "react" value mirrors esbuild's native
     // "transform" option, but it isn't obvious how these two relate from the
     // documentation: https://esbuild.github.io/api/#jsx.
-    "jsx": "react",
+    "jsx": "react"
   }
 }
