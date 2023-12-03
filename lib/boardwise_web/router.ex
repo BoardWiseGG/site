@@ -5,7 +5,8 @@ defmodule BoardWiseWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, html: {BoardWiseWeb.Layouts, :root}
+    # plug :put_root_layout, html: {BoardWiseWeb.Layouts, :root}
+    plug :put_root_layout, html: {BoardWiseWeb.Layouts, :react}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
@@ -44,6 +45,6 @@ defmodule BoardWiseWeb.Router do
   scope "/", BoardWiseWeb do
     pipe_through :browser
 
-    get "/*path", ReactController, :index
+    get "/*path", ReactController, :mount
   end
 end

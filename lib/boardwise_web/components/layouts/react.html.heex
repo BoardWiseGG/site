@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full antialiased">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="description"
+      content="BoardWise - Level up your chess game with a world-class coach."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <link rel="icon" href={~p"/favicon.ico"} type="image/x-icon" />
+    <.live_title suffix="">
+      <%= assigns[:page_title] || "BoardWise" %>
+    </.live_title>
+    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
+    </script>
+    <script defer type="text/javascript" src={~p"/assets/react/main.js"}>
+    </script>
+  </head>
+  <body class="flex min-h-full flex-col text-base text-black">
+    <%= @inner_content %>
+  </body>
+</html>

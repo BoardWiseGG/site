@@ -13,8 +13,10 @@ while IFS= read -r FILENAME
 do
   if [[ "$FILENAME" =~ .*\.exs? ]]; then
     MIX_TARGETS+=("${FILENAME}")
-  elif [[ "$FILENAME" =~ .*\.jsx? ]] || [[ "$FILENAME" =~ .*\.tsx? ]]; then
-    WEB_TARGETS+=("${FILENAME}")
+  elif
+    [[ "$FILENAME" =~ assets/.*\.jsx? ]] ||
+    [[ "$FILENAME" =~ assets/.*\.tsx? ]]; then
+    WEB_TARGETS+=("${FILENAME#"assets/"}")
   fi
 done <<< "$STAGED"
 
@@ -24,6 +26,7 @@ if (( ${#MIX_TARGETS[@]} )); then
 fi
 
 if (( ${#WEB_TARGETS[@]} )); then
-  prettier --write "${WEB_TARGETS[@]}"
+  cd assets
+  npx prettier --write "${WEB_TARGETS[@]}"
   git add "${WEB_TARGETS[@]}"
 fi
