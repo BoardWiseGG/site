@@ -75,13 +75,26 @@ node packages will be included in the Nix build, influencing the outcome of
 NOTE: Do not update the lock version used in `assets`. `node2nix` currently only
 supports lock versions 1 and 2.
 
-## Language Server
+## Releases
+
+To create a new [Mix release](https://hexdocs.pm/mix/1.12/Mix.Tasks.Release.html),
+run `nix build` (after updating dependencies as outlined in the previous
+section). You can test the release is functional by running:
+```bash
+$ export DATABASE_URL=ecto://<username>:<password>@<host>/<db_name>
+$ export SECRET_KEY_BASE=$(mix phx.gen.secret)
+$ result/bin/boardwise start
+```
+
+## Development
+
+### Language Server
 
 The [elixir-ls](https://github.com/elixir-lsp/elixir-ls) LSP (version 0.17.10)
 and [typescript-language-server](https://github.com/typescript-language-server/typescript-language-server)
 (version 4.1.2) is included in this flake.
 
-## Formatting
+### Formatting
 
 Formatting depends on [prettier](https://prettier.io/) (version 3.1.0) and the
 `mix format` task. A `pre-commit` hook is included in `.githooks` that can be
