@@ -1,7 +1,7 @@
-import * as React from "react";
-import clsx from "clsx";
+import * as React from "react"
+import clsx from "clsx"
 
-import LogoMark from "../icons/Logomark";
+import LogoMark from "../icons/Logomark"
 
 export function Logo({
   invert = false,
@@ -15,11 +15,11 @@ export function Logo({
       <p
         className={clsx(
           "font-display text-xl font-bold tracking-tight",
-          invert ? "text-white" : "text-neutral-950",
+          invert ? "text-white" : "text-neutral-950"
         )}
       >
         BoardWise
       </p>
     </div>
-  );
+  )
 }

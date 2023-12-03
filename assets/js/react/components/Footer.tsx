@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from "react"
 
-import { Container } from "./Container";
-import { Logo } from "./Logo";
+import { Container } from "./Container"
+import { Logo } from "./Logo"
 
 const navigation = [
   {
@@ -15,7 +15,7 @@ const navigation = [
       { title: "Contact Us", href: "/contact/" },
     ],
   },
-];
+]
 
 function Navigation() {
   return (
@@ -42,7 +42,7 @@ function Navigation() {
         ))}
       </ul>
     </nav>
-  );
+  )
 }
 
 export function Footer() {
@@ -60,5 +60,5 @@ export function Footer() {
         </p>
       </div>
     </Container>
-  );
+  )
 }
