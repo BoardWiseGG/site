@@ -4,6 +4,24 @@
 
 let
   sources = {
+    "@emotion/is-prop-valid-0.8.8" = {
+      name = "_at_emotion_slash_is-prop-valid";
+      packageName = "@emotion/is-prop-valid";
+      version = "0.8.8";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@emotion/is-prop-valid/-/is-prop-valid-0.8.8.tgz";
+        sha512 = "u5WtneEAr5IDG2Wv65yhunPSMLIpuKsbuOktRojfrEiEvRyC85LgPMZI63cr7NUqT8ZIGdSVg8ZKGxIug4lXcA==";
+      };
+    };
+    "@emotion/memoize-0.7.4" = {
+      name = "_at_emotion_slash_memoize";
+      packageName = "@emotion/memoize";
+      version = "0.7.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@emotion/memoize/-/memoize-0.7.4.tgz";
+        sha512 = "Ja/Vfqe3HpuzRsG1oBtWTHk2PGZ7GR+2Vz5iYGelAw8dx32K0y7PjVuxK6z1nMpZOqAFsRUPCkK1YjJ56qJlgw==";
+      };
+    };
     "@remix-run/router-1.13.1" = {
       name = "_at_remix-run_slash_router";
       packageName = "@remix-run/router";
@@ -20,6 +38,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/clsx/-/clsx-2.0.0.tgz";
         sha512 = "rQ1+kcj+ttHG0MKVGBUXwayCCF1oh39BF5COIpRzuCEv8Mwjv0XucrI2ExNTOn9IlLifGClWQcU9BrZORvtw6Q==";
+      };
+    };
+    "framer-motion-10.16.12" = {
+      name = "framer-motion";
+      packageName = "framer-motion";
+      version = "10.16.12";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/framer-motion/-/framer-motion-10.16.12.tgz";
+        sha512 = "w7Yzx0OzQ5Uh6uNkxaX+4TuAPuOKz3haSbjmHpdrqDpGuCJCpq6YP9Dy7JJWdZ6mJjndrg3Ao3vUwDajKNikCA==";
       };
     };
     "js-tokens-4.0.0" = {
@@ -85,6 +112,15 @@ let
         sha512 = "CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==";
       };
     };
+    "tslib-2.6.2" = {
+      name = "tslib";
+      packageName = "tslib";
+      version = "2.6.2";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/tslib/-/tslib-2.6.2.tgz";
+        sha512 = "AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==";
+      };
+    };
   };
   args = {
     name = "boardwise";
@@ -92,8 +128,11 @@ let
     version = "0.1.0";
     src = ./.;
     dependencies = [
+      sources."@emotion/is-prop-valid-0.8.8"
+      sources."@emotion/memoize-0.7.4"
       sources."@remix-run/router-1.13.1"
       sources."clsx-2.0.0"
+      sources."framer-motion-10.16.12"
       sources."js-tokens-4.0.0"
       sources."loose-envify-1.4.0"
       sources."react-18.2.0"
@@ -101,6 +140,7 @@ let
       sources."react-router-6.20.1"
       sources."react-router-dom-6.20.1"
       sources."scheduler-0.23.0"
+      sources."tslib-2.6.2"
     ];
     buildInputs = globalBuildInputs;
     meta = {
