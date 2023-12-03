@@ -25,6 +25,7 @@
 
         tailwindcss = pkgs.nodePackages.tailwindcss.overrideAttrs (oa: {
           plugins = [
+            pkgs.nodePackages.autoprefixer
             pkgs.nodePackages."@tailwindcss/forms"
           ];
         });
