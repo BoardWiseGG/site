@@ -1,17 +1,22 @@
-# Phoenix Flake Template
+# BoardWise Website
 
-This is a template for constructing a environment for Elixir development
-(version 1.15.7, Erlang/OTP 25) with the [Phoenix](https://www.phoenixframework.org/)
-(version 1.7.10) framework. [direnv](https://direnv.net/) can be used to launch
-a dev shell upon entering this directory (refer to `.envrc`). Otherwise run via:
-```bash
-$ nix develop
-```
+This is the repository containing both the [Phoenix](https://www.phoenixframework.org/)
+backend and [React](https://react.dev/) frontend of [boardwise.gg](https://www.boardwise.gg).
+We use [nix](https://nixos.org/) for both development and release.
 
 ## Quickstart
 
-An empty Postgres cluster is initialized at `/db`. To start the database, run
-the following:
+[direnv](https://direnv.net/) can be used to launch a dev shell upon entering
+this directory (refer to `.envrc`). Otherwise run via:
+```bash
+$ nix develop
+```
+Once you have a nix development shell open, create a new Postgres cluster at
+`/db`:
+```bash
+$ pg_ctl -D db init
+```
+To start the database, run the following:
 ```bash
 $ pg_ctl -D db -l db/logfile -o --unix_socket_directories=@boardwise start
 ```
@@ -25,18 +30,28 @@ To later shut the database down, run:
 ```bash
 $ pg_ctl -D db stop
 ```
-
-Afterward, you can run the Phoenix setup commands:
+Once the database is running, you can invoke the following Phoenix setup
+commands:
 ```bash
 $ mix ecto.setup
 $ mix assets.setup
+$ cd assets && npm install
 ```
-and then start the local server:
+Afterward start the local server:
 ```bash
 $ mix phx.server
 ```
 
-## Dependencies
+## Release
+
+To create a new [Mix release](https://hexdocs.pm/mix/1.12/Mix.Tasks.Release.html),
+run `nix build` (after updating dependencies as outlined in the below sections).
+You can test the release is functional by running:
+```bash
+$ export DATABASE_URL=ecto://<username>:<password>@<host>/<db_name>
+$ export SECRET_KEY_BASE=$(mix phx.gen.secret)
+$ result/bin/boardwise start
+```
 
 ### Backend
 
@@ -56,7 +71,7 @@ using [node2nix](https://github.com/svanderburg/node2nix). You can generate the
 relevant nix files for import using the following sequence of commands:
 ```bash
 $ cd assets
-$ rm -r node_modules  # If this directory exists.
+$ rm -r node_modules
 $ node2nix -l
 ```
 In the above, we must remove `node_modules` (if it exists). Otherwise the
@@ -75,18 +90,10 @@ node packages will be included in the Nix build, influencing the outcome of
 NOTE: Do not update the lock version used in `assets`. `node2nix` currently only
 supports lock versions 1 and 2.
 
-## Releases
-
-To create a new [Mix release](https://hexdocs.pm/mix/1.12/Mix.Tasks.Release.html),
-run `nix build` (after updating dependencies as outlined in the previous
-section). You can test the release is functional by running:
-```bash
-$ export DATABASE_URL=ecto://<username>:<password>@<host>/<db_name>
-$ export SECRET_KEY_BASE=$(mix phx.gen.secret)
-$ result/bin/boardwise start
-```
-
 ## Development
+
+It's strongly advised to use `nix develop` when performing local development.
+Doing so automatically includes the following features:
 
 ### Language Server
 
