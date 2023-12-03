@@ -1,25 +1,13 @@
-import * as React from "react";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Footer } from "./components/Footer";
+import * as React from "react"
+import { RouterProvider } from "react-router-dom"
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Footer />, // Placeholder.
-  },
-  {
-    path: "/nested",
-    element: <Footer />, // Placeholder.
-  },
-]);
+import { RootLayout } from "./components/RootLayout"
+import { router } from "./router"
 
 export default function App() {
   return (
-    <div>
-      <main className="w-full flex-auto">
-        <RouterProvider router={router} />
-      </main>
-      <Footer />
-    </div>
-  );
+    <RootLayout>
+      <RouterProvider router={router} />
+    </RootLayout>
+  )
 }

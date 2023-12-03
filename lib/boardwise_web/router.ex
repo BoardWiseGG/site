@@ -10,14 +10,16 @@ defmodule BoardWiseWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :react do
+    plug :put_root_layout, html: {BoardWiseWeb.Layouts, :react}
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   scope "/", BoardWiseWeb do
     pipe_through :browser
-
-    get "/*path", ReactController, :index
   end
 
   # Other scopes may use custom stacks.
@@ -40,5 +42,12 @@ defmodule BoardWiseWeb.Router do
       live_dashboard "/dashboard", metrics: BoardWiseWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
+  end
+
+  # A catch-all that defers to the React app router.
+  scope "/", BoardWiseWeb do
+    pipe_through [:browser, :react]
+
+    get "/*path", ReactController, :mount
   end
 end
