@@ -3,14 +3,15 @@ import axios from "axios"
 import { useQuery } from "@tanstack/react-query"
 
 import type { Coach } from "../types/Coach"
-import { type SearchParams, defaultSearchParams } from "../types/SearchParams"
 
 import { Container } from "../components/Container"
 import { FadeIn, FadeInStagger } from "../components/FadeIn"
 import { FallbackMessage } from "../components/FallbackMessage"
+import { FilterModal } from "../components/FilterModal"
 import { FilterScroll } from "../components/FilterScroll"
 import { Loading } from "../components/Loading"
 import { SearchResult } from "../components/SearchResult"
+import { defaultSearchParams } from "../types/SearchParams"
 
 function SearchResults() {
   const { isLoading, isError, data } = useQuery({
@@ -54,13 +55,23 @@ function SearchResults() {
 
 export function Search() {
   const [searchParams, setSearchParams] = React.useState(defaultSearchParams)
+  const [modalOpen, setModalOpen] = React.useState(false)
 
   return (
     <Container className="pt-8">
       <FilterScroll
         params={searchParams}
         onSelect={setSearchParams}
-        onModal={() => {}}
+        onModal={() => setModalOpen(true)}
+      />
+      <FilterModal
+        open={modalOpen}
+        defaultValues={searchParams}
+        onClose={() => setModalOpen(false)}
+        onSubmit={(q) => {
+          setSearchParams(q)
+          setModalOpen(false)
+        }}
       />
       <SearchResults />
     </Container>
