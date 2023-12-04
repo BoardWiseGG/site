@@ -1,7 +1,7 @@
 import * as React from "react"
 import clsx from "clsx"
 
-import LogoMark from "../icons/Logomark"
+import LogoMark from "../icons/LogoMark"
 
 export function Logo({
   invert = false,
