@@ -23,21 +23,22 @@ function SearchResults() {
   })
 
   if (isLoading) {
-    return <Loading loading />
+    return <Loading className="mt-40" loading />
   }
 
   if (isError) {
     return (
       <FallbackMessage
-        title="Unexpected Error"
-        body="We're looking into this. Please refresh or try again later."
+        className="mt-40"
+        title="Blunder!"
+        body="Our tech team is working to restore the checkmate."
       />
     )
   }
 
   return (
     <FadeInStagger
-      className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+      className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
       faster
     >
       {data?.map((coach, index) => (

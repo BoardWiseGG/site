@@ -6,7 +6,7 @@ import { Logo } from "./Logo"
 const navigation = [
   {
     title: "Students",
-    links: [{ title: "Find a Coach", href: "/c/" }],
+    links: [{ title: "Find a Coach", href: "/" }],
   },
   {
     title: "Company",
