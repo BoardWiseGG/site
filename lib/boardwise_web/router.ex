@@ -22,6 +22,12 @@ defmodule BoardWiseWeb.Router do
     pipe_through :browser
   end
 
+  scope "/api", BoardWiseWeb do
+    pipe_through :api
+
+    get "/coaches", CoachController, :index
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", BoardWiseWeb do
   #   pipe_through :api
