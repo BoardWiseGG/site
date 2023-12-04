@@ -15,18 +15,27 @@ defmodule BoardWise.Coaches.Coach do
   import Ecto.Changeset
 
   schema "export" do
+    field :site, :string
+    field :username, :string
+    field :name, :string
+    field :image_url, :string
     field :blitz, :integer
     field :bullet, :integer
     field :rapid, :integer
-
-    field :site, :string
-    field :username, :string
   end
 
   @doc false
   def changeset(coach, attrs) do
     coach
-    |> cast(attrs, [:rapid, :blitz, :bullet, :site, :username])
+    |> cast(attrs, [
+      :site,
+      :username,
+      :name,
+      :image_url,
+      :rapid,
+      :blitz,
+      :bullet
+    ])
     |> validate_required([:site, :username])
     |> unique_constraint(:site_username_unique, name: :site_username_unique)
   end

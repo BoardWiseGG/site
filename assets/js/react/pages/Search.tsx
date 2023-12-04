@@ -1,63 +1,68 @@
 import * as React from "react"
+import axios from "axios"
+import { useQuery } from "@tanstack/react-query"
 
-import type { Query } from "../types/Query"
+import type { Coach } from "../types/Coach"
+import { type SearchParams, defaultSearchParams } from "../types/SearchParams"
 
-import { CaptionImage } from "../components/CaptionImage"
 import { Container } from "../components/Container"
 import { FadeIn, FadeInStagger } from "../components/FadeIn"
 import { FallbackMessage } from "../components/FallbackMessage"
 import { FilterScroll } from "../components/FilterScroll"
 import { Loading } from "../components/Loading"
+import { SearchResult } from "../components/SearchResult"
 
-const FIDE_RATING_MIN = 1500
-const FIDE_RATING_MAX = 3200
+function SearchResults() {
+  const { isLoading, isError, data } = useQuery({
+    queryKey: ["coaches"],
+    queryFn: async () => {
+      const response = await axios.get<{ data: Coach[] }>("/api/coaches/")
+      return response.data.data
+    },
+  })
 
-interface Coach {
-  id: string
-  imageUrl: string
-  name: string
-  title: string
-  slug: string
-}
+  if (isLoading) {
+    return <Loading loading />
+  }
 
-const defaultQuery: Query = {
-  fideRating: [FIDE_RATING_MIN, FIDE_RATING_MAX],
+  if (isError) {
+    return (
+      <FallbackMessage
+        title="Unexpected Error"
+        body="We're looking into this. Please refresh or try again later."
+      />
+    )
+  }
+
+  return (
+    <FadeInStagger
+      className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+      faster
+    >
+      {data?.map((coach, index) => (
+        <FadeIn key={index} className="flex cursor-pointer flex-col">
+          <SearchResult
+            src={coach.image_url ?? ""}
+            title={coach.name ?? ""}
+            subtitle={coach.name ?? ""}
+          />
+        </FadeIn>
+      ))}
+    </FadeInStagger>
+  )
 }
 
 export function Search() {
-  const [query, setQuery] = React.useState<Query>(defaultQuery)
-  const [loading, setLoading] = React.useState(true)
-  const [coaches, setCoaches] = React.useState<Coach[]>([])
+  const [searchParams, setSearchParams] = React.useState(defaultSearchParams)
 
   return (
     <Container className="pt-8">
-      <FilterScroll query={query} onEnable={setQuery} onModal={() => {}} />
-      <Loading
-        className={loading || coaches.length === 0 ? "mt-40" : "mt-10"}
-        loading={loading}
-      >
-        {coaches.length > 0 ? (
-          <FadeInStagger
-            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-            faster
-          >
-            {coaches.map((coach, index) => (
-              <FadeIn key={index} className="flex cursor-pointer flex-col">
-                <CaptionImage
-                  title={coach.name}
-                  subtitle={coach.title || undefined}
-                  src={coach.imageUrl}
-                />
-              </FadeIn>
-            ))}
-          </FadeInStagger>
-        ) : (
-          <FallbackMessage
-            title="Coming Soon"
-            body="Full search functionality will be added soon! Please come back later."
-          />
-        )}
-      </Loading>
+      <FilterScroll
+        params={searchParams}
+        onSelect={setSearchParams}
+        onModal={() => {}}
+      />
+      <SearchResults />
     </Container>
   )
 }

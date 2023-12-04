@@ -20,7 +20,10 @@ defmodule BoardWise.Coaches do
 
   """
   def list_coaches do
-    Repo.all(Coach, prefix: @prefix)
+    Coach
+    |> limit(6)
+    |> where(site: "lichess")
+    |> Repo.all(prefix: @prefix)
   end
 
   @doc """

@@ -1,7 +1,7 @@
 import * as React from "react"
 import clsx from "clsx"
 
-import type { Query } from "../types/Query"
+import type { SearchParams } from "../types/SearchParams"
 
 import FilterIcon from "../icons/Filter"
 import RightArrowIcon from "../icons/RightArrow"
@@ -11,8 +11,8 @@ import { Button } from "./Button"
 interface FilterOption {
   title: string
   Icon: ({ ...props }: { [x: string]: any }) => React.JSX.Element
-  enable: (q: Query) => Query
-  isEnabled: (q: Query) => boolean
+  enable: (p: SearchParams) => SearchParams
+  isEnabled: (p: SearchParams) => boolean
 }
 
 const filters: FilterOption[] = [
@@ -33,12 +33,12 @@ enum Direction {
 }
 
 interface FilterScrollProps {
-  query: Query
+  params: SearchParams
   onModal: () => void
-  onEnable: (q: Query) => void
+  onSelect: (p: SearchParams) => void
 }
 
-export function FilterScroll({ query, onModal, onEnable }: FilterScrollProps) {
+export function FilterScroll({ params, onModal, onSelect }: FilterScrollProps) {
   const viewport = React.useRef<HTMLDivElement>(null)
   const [isFlush, setIsFlush] = React.useState([true, false])
 
@@ -67,9 +67,9 @@ export function FilterScroll({ query, onModal, onEnable }: FilterScrollProps) {
             <div
               key={e.title}
               className={clsx("flex-none cursor-pointer text-center", {
-                "fill-amber-500 text-amber-500": e.isEnabled(query),
+                "fill-amber-500 text-amber-500": e.isEnabled(params),
               })}
-              onClick={() => onEnable(e.enable({ ...query }))}
+              onClick={() => onSelect(e.enable({ ...params }))}
             >
               <e.Icon className="mx-auto h-6 w-6" />
               <span className="text-xs">{e.title}</span>
