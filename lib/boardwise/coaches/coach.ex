@@ -2,12 +2,13 @@ defmodule BoardWise.Coaches.Coach do
   @moduledoc """
   Table `coach_scraper.export` containing all scraped coach information.
 
-  Notice this table does not exist in the `public` schema.
+  Though initially created by our Phoenix application, the data found within
+  this table is managed by an external utility:
+  [coach-scraper](https://github.com/boardwise-gg/coach-scraper).
 
-  This table is managed by an external utility [coach-scraper](https://github.com/boardwise-gg/coach-scraper).
-  Said utility is responsible for periodically rewriting the entries in the
-  table with fresh data. For the time-being, avoid using any of the mutative
-  functions found in the `Coach` context.
+  The `coach-scraper` app is responsible for periodically rewriting the entries
+  in the table with fresh data. For the time-being, avoid using any of the
+  mutative functions found in the `Coach` context.
   """
 
   use Ecto.Schema
@@ -17,6 +18,7 @@ defmodule BoardWise.Coaches.Coach do
     field :blitz, :integer
     field :bullet, :integer
     field :rapid, :integer
+
     field :site, :string
     field :username, :string
   end
@@ -25,6 +27,7 @@ defmodule BoardWise.Coaches.Coach do
   def changeset(coach, attrs) do
     coach
     |> cast(attrs, [:rapid, :blitz, :bullet, :site, :username])
-    |> validate_required([:rapid, :blitz, :bullet, :site, :username])
+    |> validate_required([:site, :username])
+    |> unique_constraint(:site_username_unique, name: :site_username_unique)
   end
 end
