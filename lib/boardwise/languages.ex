@@ -20,7 +20,9 @@ defmodule BoardWise.Languages do
 
   """
   def list_languages do
-    Repo.all(Language, prefix: @prefix)
+    Language
+    |> order_by(:pos)
+    |> Repo.all(prefix: @prefix)
   end
 
   @doc """
