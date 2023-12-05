@@ -12,7 +12,8 @@ defmodule BoardWise.LanguagesFixtures do
       attrs
       |> Enum.into(%{
         code: "some code",
-        name: "some name"
+        name: "some name",
+        pos: 0
       })
       |> BoardWise.Languages.create_language()
 

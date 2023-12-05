@@ -21,7 +21,7 @@ defmodule BoardWise.LanguagesTest do
     end
 
     test "create_language/1 with valid data creates a language" do
-      valid_attrs = %{code: "some code", name: "some name"}
+      valid_attrs = %{code: "some code", name: "some name", pos: 1000}
 
       assert {:ok, %Language{} = language} = Languages.create_language(valid_attrs)
       assert language.code == "some code"
