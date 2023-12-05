@@ -4,6 +4,7 @@ import clsx from "clsx"
 import type { SearchParams } from "../types/SearchParams"
 
 import FilterIcon from "../icons/Filter"
+import EnglishIcon from "../icons/English"
 import RightArrowIcon from "../icons/RightArrow"
 import RisingGraphIcon from "../icons/RisingGraph"
 import { Button } from "./Button"
@@ -19,11 +20,27 @@ const filters: FilterOption[] = [
   {
     title: "FIDE 2000+",
     Icon: RisingGraphIcon,
-    enable: (q) => {
-      q.fideRating[0] = Math.max(2000, q.fideRating[0])
-      return q
+    enable: (p) => {
+      p.fideRating[0] = Math.max(2000, p.fideRating[0])
+      return p
     },
-    isEnabled: (q) => q.fideRating[0] >= 2000,
+    isEnabled: (p) => p.fideRating[0] >= 2000,
+  },
+  {
+    title: "English Speaking",
+    Icon: EnglishIcon,
+    enable: (p) => {
+      for (const lang of ["en-US", "en-GB"]) {
+        if (!p.languages.includes(lang)) {
+          p.languages.push(lang)
+        }
+      }
+      return p
+    },
+    // Using `||` doesn't match how `enable` works but this is probably closer
+    // to how people would expect the filter to operate.
+    isEnabled: (p) =>
+      p.languages.includes("en-US") || p.languages.includes("en-GB"),
   },
 ]
 

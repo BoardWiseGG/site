@@ -19,6 +19,7 @@ defmodule BoardWise.Coaches.Coach do
     field :username, :string
     field :name, :string
     field :image_url, :string
+    field :languages, {:array, :string}
     field :blitz, :integer
     field :bullet, :integer
     field :rapid, :integer

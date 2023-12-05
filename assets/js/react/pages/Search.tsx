@@ -1,8 +1,4 @@
 import * as React from "react"
-import axios from "axios"
-import { useQuery } from "@tanstack/react-query"
-
-import type { Coach } from "../types/Coach"
 
 import { Container } from "../components/Container"
 import { FadeIn, FadeInStagger } from "../components/FadeIn"
@@ -12,15 +8,10 @@ import { FilterScroll } from "../components/FilterScroll"
 import { Loading } from "../components/Loading"
 import { SearchResult } from "../components/SearchResult"
 import { defaultSearchParams } from "../types/SearchParams"
+import { useFetchCoaches } from "../utils/queries"
 
 function SearchResults() {
-  const { isLoading, isError, data } = useQuery({
-    queryKey: ["coaches"],
-    queryFn: async () => {
-      const response = await axios.get<{ data: Coach[] }>("/api/coaches/")
-      return response.data.data
-    },
-  })
+  const { isLoading, isError, data } = useFetchCoaches()
 
   if (isLoading) {
     return <Loading className="mt-40" loading />
