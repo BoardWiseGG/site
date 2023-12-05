@@ -22,7 +22,6 @@ defmodule BoardWise.Coaches do
   def list_coaches do
     Coach
     |> limit(6)
-    |> where(site: "lichess")
     |> Repo.all(prefix: @prefix)
   end
 

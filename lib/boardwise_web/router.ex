@@ -26,6 +26,7 @@ defmodule BoardWiseWeb.Router do
     pipe_through :api
 
     get "/coaches", CoachController, :index
+    get "/languages", LanguageController, :index
   end
 
   # Other scopes may use custom stacks.
