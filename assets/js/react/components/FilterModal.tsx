@@ -6,6 +6,7 @@ import { Field } from "./FieldSet"
 import { Input } from "./Input"
 import { Label } from "./Label"
 import { Modal } from "./Modal"
+// import { SelectLanguage, SelectLanguageProps } from './SelectLanguage'
 import { Slider } from "./Slider"
 
 import {
@@ -63,6 +64,19 @@ export function FilterModal({
 
   // Registration
 
+  // const proxyLanguages = register('languages')
+  // const registerLanguages: Pick<
+  //   SelectLanguageProps,
+  //   'defaultValue' | 'onChange'
+  // > = {
+  //   ...proxyLanguages,
+  //   defaultValue: defaultValues.languages,
+  //   onChange: (event, value) => {
+  //     event && proxyLanguages.onChange(event)
+  //     setValue('languages', (value ?? []) as string[])
+  //   },
+  // }
+
   const controlFIDERating = register("fideRating")
 
   return (
@@ -82,6 +96,25 @@ export function FilterModal({
       }}
     >
       <div className="flex flex-col gap-12">
+        {/*<Field>
+          <Label htmlFor={`${idPrefix}-languages`}>
+            Preferred Language(s):
+          </Label>
+          <p className="py-2 text-sm">
+            Select languages you prefer communicating in. We{"'"}ll prioritize
+            finding coaches that can speak fluently in at least one of your
+            selections.
+          </p>
+          <SelectLanguage
+            id={`${idPrefix}-languages`}
+            slotProps={{
+              root: { className: 'w-full' },
+            }}
+            {...registerLanguages}
+            multiple
+          />
+        </Field>*/}
+
         <Field>
           <Label htmlFor={`${idPrefix}-fideRating`}>FIDE Rating:</Label>
           <p className="py-2 text-sm">
