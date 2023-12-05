@@ -5,7 +5,7 @@ type SearchResultProps = {
   title?: string
   subtitle?: string
   src?: string
-} & React.ComponentPropsWithoutRef<"div">
+} & React.ComponentPropsWithoutRef<"a">
 
 export function SearchResult({
   title,
@@ -15,7 +15,7 @@ export function SearchResult({
   ...props
 }: SearchResultProps) {
   return (
-    <div
+    <a
       className={clsx(
         "group relative h-96 overflow-hidden rounded-3xl bg-neutral-100",
         className
@@ -36,6 +36,6 @@ export function SearchResult({
           <p className="mt-2 text-sm text-white">{subtitle}</p>
         ) : null}
       </div>
-    </div>
+    </a>
   )
 }

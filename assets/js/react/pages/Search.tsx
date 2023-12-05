@@ -38,6 +38,14 @@ function SearchResults() {
             src={coach.image_url ?? ""}
             title={coach.name ?? ""}
             subtitle={coach.name ?? ""}
+            target="_blank"
+            href={
+              coach.site === "lichess"
+                ? `https://lichess.org/coach/${coach.username}`
+                : coach.site === "chesscom"
+                  ? `https://www.chess.com/member/${coach.username}`
+                  : undefined
+            }
           />
         </FadeIn>
       ))}
