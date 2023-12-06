@@ -21,10 +21,10 @@ const filters: FilterOption[] = [
     title: "FIDE 2000+",
     Icon: RisingGraphIcon,
     enable: (p) => {
-      p.fideRating[0] = Math.max(2000, p.fideRating[0])
+      p.rating[0] = Math.max(2000, p.rating[0])
       return p
     },
-    isEnabled: (p) => p.fideRating[0] >= 2000,
+    isEnabled: (p) => p.rating[0] >= 2000,
   },
   {
     title: "English Speaking",
