@@ -1,28 +1,42 @@
 defmodule BoardWiseWeb.CoachController do
   use BoardWiseWeb, :controller
-  require Logger
 
   alias BoardWise.Coaches
-
-  plug :fetch_query_params
+  alias BoardWise.Coaches.QueryParams
 
   def index(conn, params) do
-    page_no = get_integer_param(params, "page_no", 1)
-    page_size = get_integer_param(params, "page_size", 10)
-    coaches = Coaches.page_coaches(page_no, page_size)
+    query_params =
+      %QueryParams{}
+      |> override_param(:rapid_gte, params, :integer)
+      |> override_param(:rapid_lte, params, :integer)
+      |> override_param(:blitz_gte, params, :integer)
+      |> override_param(:blitz_lte, params, :integer)
+      |> override_param(:bullet_gte, params, :integer)
+      |> override_param(:bullet_lte, params, :integer)
+      |> override_param(:languages, params, :strlist)
+      |> override_param(:page_no, params, :integer)
+      |> override_param(:page_size, params, :integer)
+
+    # Ensure we never attempt to query too large of a response all at once.
+    query_params = %{query_params | page_size: Enum.min([query_params.page_size, 25])}
+
+    coaches = Coaches.list_coaches(query_params)
     render(conn, :index, coaches: coaches)
   end
 
-  defp get_integer_param(params, key, default) do
-    val = Map.get(params, key)
+  defp override_param(query_params, key, params, type) do
+    case Map.get(params, Atom.to_string(key)) do
+      nil ->
+        query_params
 
-    if is_nil(val) do
-      default
-    else
-      case Integer.parse(val) do
-        {parsed, ""} -> parsed
-        _ -> default
-      end
+      val when type == :strlist ->
+        %{query_params | key => String.split(val, ",")}
+
+      val when type == :integer ->
+        case Integer.parse(val) do
+          {parsed, ""} -> %{query_params | key => parsed}
+          _ -> query_params
+        end
     end
   end
 end

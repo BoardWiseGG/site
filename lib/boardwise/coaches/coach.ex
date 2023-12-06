@@ -15,14 +15,20 @@ defmodule BoardWise.Coaches.Coach do
   import Ecto.Changeset
 
   schema "export" do
+    # required fields
     field :site, :string
     field :username, :string
+
+    # optional fields
     field :name, :string
     field :image_url, :string
     field :languages, {:array, :string}
     field :blitz, :integer
     field :bullet, :integer
     field :rapid, :integer
+
+    # virtual fields
+    field :score, :integer, virtual: true
   end
 
   @doc false

@@ -12,8 +12,8 @@ import { SelectLanguage, SelectLanguageProps } from "./SelectLanguage"
 import { Slider } from "./Slider"
 
 import {
-  FIDE_RATING_MIN,
-  FIDE_RATING_MAX,
+  FIDE_RATING_MIN as RATING_MIN,
+  FIDE_RATING_MAX as RATING_MAX,
   SearchParams,
 } from "../types/SearchParams"
 
@@ -55,8 +55,18 @@ export function FilterModal({
 }: FilterModalProps) {
   const idPrefix = React.useId()
 
-  const { watch, reset, control, register, setValue, handleSubmit } =
-    useForm<SearchParams>({ defaultValues })
+  const {
+    watch,
+    reset,
+    control,
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SearchParams>({
+    mode: "onChange",
+    defaultValues,
+  })
 
   // Default values are processed immediately despite the modal not being open
   // at the start. Furthermore, values are preserved after closing and
@@ -80,7 +90,9 @@ export function FilterModal({
   }
 
   const registerRating = register("rating")
-  const registerModes = register("modes")
+  const registerModes = register("modes", {
+    required: "Please select at least one mode.",
+  })
 
   return (
     <Modal
@@ -91,7 +103,11 @@ export function FilterModal({
         as: "form",
         title: "Filters",
         footer: (
-          <Button className="float-right py-2" type="submit">
+          <Button
+            className="float-right py-2"
+            type="submit"
+            disabled={Object.keys(errors).length > 0}
+          >
             Search coaches
           </Button>
         ),
@@ -119,7 +135,7 @@ export function FilterModal({
         </Field>
 
         <Field>
-          <Label htmlFor={`${idPrefix}-rating`}>FIDE Rating:</Label>
+          <Label htmlFor={`${idPrefix}-rating`}>Rating:</Label>
           <p className="py-2 text-sm">
             Find coaches that have a rating within the specified range. Keep in
             mind, a higher rating does not necessarily mean a better coach{" "}
@@ -141,14 +157,11 @@ export function FilterModal({
                     setValue("rating.1", newValue[1])
                   }}
                   step={10}
-                  min={FIDE_RATING_MIN}
-                  max={FIDE_RATING_MAX}
-                  marks={computeStepLabels(
-                    FIDE_RATING_MIN,
-                    FIDE_RATING_MAX,
-                    7,
-                    50
-                  ).map((s) => ({ value: s, label: `${s}` }))}
+                  min={RATING_MIN}
+                  max={RATING_MAX}
+                  marks={computeStepLabels(RATING_MIN, RATING_MAX, 7, 50).map(
+                    (s) => ({ value: s, label: `${s}` })
+                  )}
                 />
               )}
             />
@@ -169,12 +182,13 @@ export function FilterModal({
           </div>
         </Field>
 
-        <FieldSet className="text-sm text-neutral-600">
-          <p className="py-2">
+        <FieldSet error={errors?.modes?.message}>
+          <Label htmlFor={`${idPrefix}-rating`}>Mode:</Label>
+          <p className="py-2 text-sm">
             Prefer a specific game mode? We{"'"}ll prioritize coaches that
             specialize in the modes selected.
           </p>
-          <div className="grid grid-cols-3 pt-3">
+          <div className="grid grid-cols-3 pt-2 text-sm">
             {(Object.keys(Mode) as Mode[]).map((m) => (
               <div key={m} className="col-span-1 flex items-center gap-x-2">
                 <CheckBox value={m} {...registerModes} />

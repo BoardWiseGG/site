@@ -14,3 +14,18 @@ export const defaultSearchParams: SearchParams = {
   modes: [Mode.RAPID, Mode.BLITZ, Mode.BULLET],
   languages: [],
 }
+
+export function toQueryParams(p: SearchParams) {
+  const queryParams: { [key: string]: any } = {}
+
+  for (const mode of p.modes) {
+    queryParams[`${mode.toLowerCase()}_gte`] = p.rating[0]
+    queryParams[`${mode.toLowerCase()}_lte`] = p.rating[1]
+  }
+
+  if (p.languages.length > 0) {
+    queryParams["languages"] = p.languages.join(",")
+  }
+
+  return queryParams
+}

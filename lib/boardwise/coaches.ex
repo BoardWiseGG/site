@@ -7,24 +7,71 @@ defmodule BoardWise.Coaches do
   alias BoardWise.Repo
 
   alias BoardWise.Coaches.Coach
+  alias BoardWise.Coaches.QueryParams
 
   @prefix "coach_scraper"
 
+  defmacrop rating_fragment(field, gte, lte) do
+    quote do
+      fragment(
+        """
+          CASE
+            WHEN ? IS NULL THEN 0
+            WHEN ? IS NULL THEN 0
+            WHEN ? >= ? AND ? <= ? THEN 5
+            ELSE 0
+          END
+        """,
+        type(unquote(gte), :integer),
+        type(unquote(lte), :integer),
+        unquote(field),
+        type(unquote(gte), :integer),
+        unquote(field),
+        type(unquote(lte), :integer)
+      )
+    end
+  end
+
   @doc """
-  Return the list of coaches at the given page, based on page size.
+  Return the list of coaches according to the specified params.
 
   ## Examples
 
-      iex> page_coaches(1, 25)
+      iex> list_coaches(%QueryParams{...})
       [%Coach{}, ...]
 
   """
-  def page_coaches(page_no, page_size) do
-    offset = (page_no - 1) * page_size
-
+  def list_coaches(%QueryParams{
+        :rapid_gte => rapid_gte,
+        :rapid_lte => rapid_lte,
+        :blitz_gte => blitz_gte,
+        :blitz_lte => blitz_lte,
+        :bullet_gte => bullet_gte,
+        :bullet_lte => bullet_lte,
+        :languages => languages,
+        :page_no => page_no,
+        :page_size => page_size
+      }) do
     Coach
+    |> select([c], c)
+    |> select_merge(
+      [c],
+      %{
+        score:
+          fragment(
+            """
+            ? + ? + ?
+            """,
+            rating_fragment(c.rapid, ^rapid_gte, ^rapid_lte),
+            rating_fragment(c.blitz, ^blitz_gte, ^blitz_lte),
+            rating_fragment(c.bullet, ^bullet_gte, ^bullet_lte)
+          )
+          |> selected_as(:score)
+      }
+    )
+    |> order_by(desc: selected_as(:score))
     |> limit(^page_size)
-    |> offset(^offset)
+    |> offset(^((page_no - 1) * page_size))
     |> Repo.all(prefix: @prefix)
   end
 
