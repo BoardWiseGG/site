@@ -21,7 +21,7 @@ export function FadeIn({ ...props }) {
             whileInView: "visible",
             viewport: {
               once: true,
-              margin: "0px 0px -200px",
+              margin: "0px 0px -120px",
             },
           })}
       {...props}

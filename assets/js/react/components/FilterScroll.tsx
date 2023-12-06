@@ -74,8 +74,8 @@ export function FilterScroll({ params, onModal, onSelect }: FilterScrollProps) {
   }
 
   return (
-    <div className="flex items-center gap-x-8">
-      <div className="relative flex overflow-hidden">
+    <div className="flex items-center gap-x-8 w-full">
+      <div className="relative flex overflow-hidden w-full">
         <div
           ref={viewport}
           className="flex items-center gap-x-12 overflow-hidden"
@@ -93,7 +93,7 @@ export function FilterScroll({ params, onModal, onSelect }: FilterScrollProps) {
             </div>
           ))}
         </div>
-        <div
+        {/*<div
           className={clsx(
             "pointer-events-none absolute top-1/2 -translate-y-1/2 bg-gradient-to-r from-white to-transparent to-90% py-4 pr-60",
             isFlush[0] ? "hidden" : ""
@@ -124,7 +124,7 @@ export function FilterScroll({ params, onModal, onSelect }: FilterScrollProps) {
           >
             <RightArrowIcon className="h-3 w-3 fill-white" />
           </Button>
-        </div>
+        </div>*/}
       </div>
       <Button className="flex gap-x-2 py-4" onClick={onModal}>
         <FilterIcon className="h-6 w-6 fill-white" />
