@@ -60,11 +60,20 @@ defmodule BoardWise.Coaches do
         score:
           fragment(
             """
-            ? + ? + ?
+            CASE WHEN ? IS NOT NULL THEN 1000 ELSE 0 END +
+            CASE WHEN ? IS NOT NULL THEN 500 ELSE 0 END +
+            ? +
+            ? +
+            ? +
+            (5 * (SELECT COUNT(*) FROM UNNEST(?) WHERE UNNEST = ANY(?)))
             """,
+            c.name,
+            c.image_url,
             rating_fragment(c.rapid, ^rapid_gte, ^rapid_lte),
             rating_fragment(c.blitz, ^blitz_gte, ^blitz_lte),
-            rating_fragment(c.bullet, ^bullet_gte, ^bullet_lte)
+            rating_fragment(c.bullet, ^bullet_gte, ^bullet_lte),
+            type(^languages, {:array, :string}),
+            c.languages
           )
           |> selected_as(:score)
       }

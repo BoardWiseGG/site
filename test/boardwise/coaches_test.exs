@@ -5,14 +5,15 @@ defmodule BoardWise.CoachesTest do
 
   describe "coaches" do
     alias BoardWise.Coaches.Coach
+    alias BoardWise.Coaches.QueryParams
 
     import BoardWise.CoachesFixtures
 
     @invalid_attrs %{blitz: nil, bullet: nil, rapid: nil, site: nil, username: nil}
 
-    test "page_coaches/2 returns all coaches" do
+    test "list_coaches/2 returns all coaches" do
       coach = coach_fixture()
-      assert Coaches.page_coaches(1, 1000) == [coach]
+      assert Coaches.list_coaches(%QueryParams{}) == [%{coach | score: 0}]
     end
 
     test "get_coach!/1 returns the coach with given id" do
