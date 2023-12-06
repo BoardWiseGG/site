@@ -11,17 +11,20 @@ defmodule BoardWise.Coaches do
   @prefix "coach_scraper"
 
   @doc """
-  Returns the list of coaches.
+  Return the list of coaches at the given page, based on page size.
 
   ## Examples
 
-      iex> list_coaches()
+      iex> page_coaches(1, 25)
       [%Coach{}, ...]
 
   """
-  def list_coaches do
+  def page_coaches(page_no, page_size) do
+    offset = (page_no - 1) * page_size
+
     Coach
-    |> limit(6)
+    |> limit(^page_size)
+    |> offset(^offset)
     |> Repo.all(prefix: @prefix)
   end
 

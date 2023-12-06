@@ -3,10 +3,10 @@ import clsx from "clsx"
 
 import { FadeIn } from "./FadeIn"
 
-export type FallbackMessageProps = React.ComponentPropsWithoutRef<"div"> & {
+export type FallbackMessageProps = {
   title: string
   body: string
-}
+} & React.ComponentPropsWithoutRef<"div">
 
 export const FallbackMessage = React.forwardRef(function FallbackMessage(
   props: FallbackMessageProps,

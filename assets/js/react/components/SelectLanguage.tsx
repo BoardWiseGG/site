@@ -4,7 +4,7 @@ import { SelectProps } from "@mui/base/Select"
 import type { Language } from "../types/Language"
 
 import { Select, Option } from "./Select"
-import { useFetchLanguages } from "../utils/queries"
+import { useLanguagesQuery } from "../utils/queries"
 
 export type SelectLanguageProps = SelectProps<{}, boolean>
 
@@ -15,7 +15,7 @@ export const SelectLanguage = React.forwardRef(function SelectLanguage(
   const id = React.useId()
   const [options, setOptions] = React.useState<Language[] | null>(null)
   const { defaultValue, ...other } = props
-  const { isLoading, data } = useFetchLanguages()
+  const { isLoading, data } = useLanguagesQuery()
 
   React.useEffect(() => {
     if (data) {

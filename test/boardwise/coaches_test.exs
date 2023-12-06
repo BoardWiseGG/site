@@ -10,9 +10,9 @@ defmodule BoardWise.CoachesTest do
 
     @invalid_attrs %{blitz: nil, bullet: nil, rapid: nil, site: nil, username: nil}
 
-    test "list_coaches/0 returns all coaches" do
+    test "page_coaches/2 returns all coaches" do
       coach = coach_fixture()
-      assert Coaches.list_coaches() == [coach]
+      assert Coaches.page_coaches(1, 1000) == [coach]
     end
 
     test "get_coach!/1 returns the coach with given id" do

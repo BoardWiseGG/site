@@ -33,6 +33,7 @@ defmodule BoardWise.Coaches.Coach do
       :username,
       :name,
       :image_url,
+      :languages,
       :rapid,
       :blitz,
       :bullet

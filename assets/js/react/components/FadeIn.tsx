@@ -1,9 +1,7 @@
 import * as React from "react"
-import { motion, useReducedMotion } from "framer-motion"
+import { MotionProps, motion, useReducedMotion } from "framer-motion"
 
 const FadeInStaggerContext = React.createContext(false)
-
-const viewport = { once: true, margin: "0px 0px -200px" }
 
 export function FadeIn({ ...props }) {
   let shouldReduceMotion = useReducedMotion()
@@ -21,23 +19,42 @@ export function FadeIn({ ...props }) {
         : {
             initial: "hidden",
             whileInView: "visible",
-            viewport,
+            viewport: {
+              once: true,
+              margin: "0px 0px -200px",
+            },
           })}
       {...props}
     />
   )
 }
 
-export function FadeInStagger({ faster = false, ...props }) {
+export type FadeInStaggerProps = {
+  faster?: boolean
+  className?: string
+} & MotionProps
+
+export const FadeInStagger = React.forwardRef(function FadeInStagger(
+  props: FadeInStaggerProps,
+  ref: React.ForwardedRef<HTMLDivElement>
+) {
+  const { faster = false, ...other } = props
+
+  // Consider dropping framer-motion:
+  // https://github.com/framer/motion/issues/776
   return (
     <FadeInStaggerContext.Provider value={true}>
       <motion.div
+        ref={ref}
         initial="hidden"
         whileInView="visible"
-        viewport={viewport}
+        viewport={{
+          once: true,
+          margin: "0px 0px -200px",
+        }}
         transition={{ staggerChildren: faster ? 0.12 : 0.2 }}
-        {...props}
+        {...other}
       />
     </FadeInStaggerContext.Provider>
   )
-}
+})
