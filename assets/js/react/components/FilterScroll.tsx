@@ -3,11 +3,15 @@ import clsx from "clsx"
 
 import type { SearchParams } from "../types/SearchParams"
 
-import FilterIcon from "../icons/Filter"
+import BulletIcon from "../icons/Bullet"
 import EnglishIcon from "../icons/English"
+import FilterIcon from "../icons/Filter"
+import LightningIcon from "../icons/Lightning"
+import RabbitIcon from "../icons/Rabbit"
 import RightArrowIcon from "../icons/RightArrow"
 import RisingGraphIcon from "../icons/RisingGraph"
 import { Button } from "./Button"
+import { Mode } from "../types/Mode"
 
 interface FilterOption {
   title: string
@@ -42,6 +46,33 @@ const filters: FilterOption[] = [
     isEnabled: (p) =>
       p.languages.includes("en-US") || p.languages.includes("en-GB"),
   },
+  {
+    title: "Rapid Specialty",
+    Icon: RabbitIcon,
+    enable: (p) => {
+      p.modes = [Mode.RAPID]
+      return p
+    },
+    isEnabled: (p) => p.modes.length === 1 && p.modes.includes(Mode.RAPID),
+  },
+  {
+    title: "Blitz Specialty",
+    Icon: LightningIcon,
+    enable: (p) => {
+      p.modes = [Mode.BLITZ]
+      return p
+    },
+    isEnabled: (p) => p.modes.length === 1 && p.modes.includes(Mode.BLITZ),
+  },
+  {
+    title: "Bullet Specialty",
+    Icon: BulletIcon,
+    enable: (p) => {
+      p.modes = [Mode.BULLET]
+      return p
+    },
+    isEnabled: (p) => p.modes.length === 1 && p.modes.includes(Mode.BULLET),
+  },
 ]
 
 enum Direction {
@@ -74,8 +105,8 @@ export function FilterScroll({ params, onModal, onSelect }: FilterScrollProps) {
   }
 
   return (
-    <div className="flex items-center gap-x-8 w-full">
-      <div className="relative flex overflow-hidden w-full">
+    <div className="flex items-center gap-x-8">
+      <div className="relative flex flex-grow overflow-hidden">
         <div
           ref={viewport}
           className="flex items-center gap-x-12 overflow-hidden"
@@ -93,7 +124,7 @@ export function FilterScroll({ params, onModal, onSelect }: FilterScrollProps) {
             </div>
           ))}
         </div>
-        {/*<div
+        <div
           className={clsx(
             "pointer-events-none absolute top-1/2 -translate-y-1/2 bg-gradient-to-r from-white to-transparent to-90% py-4 pr-60",
             isFlush[0] ? "hidden" : ""
@@ -124,7 +155,7 @@ export function FilterScroll({ params, onModal, onSelect }: FilterScrollProps) {
           >
             <RightArrowIcon className="h-3 w-3 fill-white" />
           </Button>
-        </div>*/}
+        </div>
       </div>
       <Button className="flex gap-x-2 py-4" onClick={onModal}>
         <FilterIcon className="h-6 w-6 fill-white" />
