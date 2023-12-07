@@ -10,15 +10,15 @@ export type SearchParams = {
   sites: Site[]
 }
 
-export const FIDE_RATING_MIN = 1500
-export const FIDE_RATING_MAX = 3200
+export const RATING_MIN = 1500
+export const RATING_MAX = 3200
 
 export const defaultSearchParams: SearchParams = {
-  rating: [FIDE_RATING_MIN, FIDE_RATING_MAX],
+  rating: [RATING_MIN, RATING_MAX],
   modes: [Mode.RAPID, Mode.BLITZ, Mode.BULLET],
   languages: [],
   titles: [],
-  sites: [Site.CHESSCOM, Site.LICHESS],
+  sites: [Site.LICHESS],
 }
 
 export function toQueryParams(p: SearchParams) {

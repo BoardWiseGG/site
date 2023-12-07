@@ -5,10 +5,10 @@ import type { SearchParams } from "../types/SearchParams"
 import { Container } from "../components/Container"
 import { FadeIn } from "../components/FadeIn"
 import { FallbackMessage } from "../components/FallbackMessage"
-import { FilterModal } from "../components/FilterModal"
-import { FilterScroll } from "../components/FilterScroll"
 import { Loading } from "../components/Loading"
 import { SearchResult } from "../components/SearchResult"
+import { SortModal } from "../components/SortModal"
+import { SortScroll } from "../components/SortScroll"
 import { defaultSearchParams } from "../types/SearchParams"
 import { useCoachesInfiniteQuery } from "../utils/queries"
 
@@ -79,12 +79,12 @@ export function Search() {
 
   return (
     <Container className="pt-8">
-      <FilterScroll
+      <SortScroll
         params={searchParams}
         onSelect={setSearchParams}
         onModal={() => setModalOpen(true)}
       />
-      <FilterModal
+      <SortModal
         open={modalOpen}
         defaultValues={searchParams}
         onClose={() => setModalOpen(false)}

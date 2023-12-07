@@ -13,11 +13,7 @@ import { SelectTitle, SelectTitleProps } from "./SelectTitle"
 import { Site, getSiteName } from "../types/Site"
 import { Slider } from "./Slider"
 import { Title } from "../types/Title"
-import {
-  FIDE_RATING_MIN as RATING_MIN,
-  FIDE_RATING_MAX as RATING_MAX,
-  SearchParams,
-} from "../types/SearchParams"
+import { RATING_MIN, RATING_MAX, SearchParams } from "../types/SearchParams"
 
 const computeStepLabels = (
   min: number,
@@ -42,19 +38,19 @@ const computeStepLabels = (
   return labels
 }
 
-interface FilterModalProps {
+interface SortModalProps {
   open: boolean
   defaultValues: SearchParams
   onClose: () => void
   onSubmit: (p: SearchParams) => void
 }
 
-export function FilterModal({
+export function SortModal({
   open,
   defaultValues,
   onClose,
   onSubmit,
-}: FilterModalProps) {
+}: SortModalProps) {
   const idPrefix = React.useId()
 
   const {
@@ -117,14 +113,14 @@ export function FilterModal({
       closeAfterTransition
       frame={{
         as: "form",
-        title: "Filters",
+        title: "Sort Coaches",
         footer: (
           <Button
             className="float-right py-2"
             type="submit"
             disabled={Object.keys(errors).length > 0}
           >
-            Search coaches
+            Submit
           </Button>
         ),
         onSubmit: handleSubmit(onSubmit),

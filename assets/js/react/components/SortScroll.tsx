@@ -5,7 +5,7 @@ import type { SearchParams } from "../types/SearchParams"
 
 import BulletIcon from "../icons/Bullet"
 import EnglishIcon from "../icons/English"
-import FilterIcon from "../icons/Filter"
+import SortIcon from "../icons/Sort"
 import KnightIcon from "../icons/Knight"
 import LightningIcon from "../icons/Lightning"
 import PawnIcon from "../icons/Pawn"
@@ -18,22 +18,31 @@ import { Mode } from "../types/Mode"
 import { Site } from "../types/Site"
 import { Title } from "../types/Title"
 
-interface FilterOption {
+interface SortOption {
   title: string
   Icon: ({ ...props }: { [x: string]: any }) => React.JSX.Element
   enable: (p: SearchParams) => SearchParams
   isEnabled: (p: SearchParams) => boolean
 }
 
-const filters: FilterOption[] = [
+const filters: SortOption[] = [
   {
-    title: "FIDE 2000+",
-    Icon: RisingGraphIcon,
+    title: "On Lichess",
+    Icon: KnightIcon,
     enable: (p) => {
-      p.rating[0] = Math.max(2000, p.rating[0])
+      p.sites.push(Site.LICHESS)
       return p
     },
-    isEnabled: (p) => p.rating[0] >= 2000,
+    isEnabled: (p) => p.sites.includes(Site.LICHESS),
+  },
+  {
+    title: "On Chess.com",
+    Icon: PawnIcon,
+    enable: (p) => {
+      p.sites.push(Site.CHESSCOM)
+      return p
+    },
+    isEnabled: (p) => p.sites.includes(Site.CHESSCOM),
   },
   {
     title: "English Speaking",
@@ -50,6 +59,15 @@ const filters: FilterOption[] = [
     // to how people would expect the filter to operate.
     isEnabled: (p) =>
       p.languages.includes("en-US") || p.languages.includes("en-GB"),
+  },
+  {
+    title: "ELO 2000+",
+    Icon: RisingGraphIcon,
+    enable: (p) => {
+      p.rating[0] = Math.max(2000, p.rating[0])
+      return p
+    },
+    isEnabled: (p) => p.rating[0] >= 2000,
   },
   {
     title: "Rapid Specialty",
@@ -79,24 +97,6 @@ const filters: FilterOption[] = [
     isEnabled: (p) => p.modes.length === 1 && p.modes.includes(Mode.BULLET),
   },
   {
-    title: "On Chess.com",
-    Icon: PawnIcon,
-    enable: (p) => {
-      p.sites.push(Site.CHESSCOM)
-      return p
-    },
-    isEnabled: (p) => p.sites.includes(Site.CHESSCOM),
-  },
-  {
-    title: "On Lichess",
-    Icon: KnightIcon,
-    enable: (p) => {
-      p.sites.push(Site.LICHESS)
-      return p
-    },
-    isEnabled: (p) => p.sites.includes(Site.LICHESS),
-  },
-  {
     title: "Titled Player",
     Icon: TrophyIcon,
     enable: (p) => {
@@ -112,13 +112,13 @@ enum Direction {
   RIGHT,
 }
 
-interface FilterScrollProps {
+interface SortScrollProps {
   params: SearchParams
   onModal: () => void
   onSelect: (p: SearchParams) => void
 }
 
-export function FilterScroll({ params, onModal, onSelect }: FilterScrollProps) {
+export function SortScroll({ params, onModal, onSelect }: SortScrollProps) {
   const viewport = React.useRef<HTMLDivElement>(null)
   const [isFlush, setIsFlush] = React.useState([true, false])
 
@@ -190,8 +190,8 @@ export function FilterScroll({ params, onModal, onSelect }: FilterScrollProps) {
         </div>
       </div>
       <Button className="flex gap-x-2 py-4" onClick={onModal}>
-        <FilterIcon className="h-6 w-6 fill-white" />
-        <span className="font-display">Filter</span>
+        <SortIcon className="h-6 w-6 fill-white" />
+        <span className="font-display">Sort</span>
       </Button>
     </div>
   )
