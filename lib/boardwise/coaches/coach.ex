@@ -24,9 +24,10 @@ defmodule BoardWise.Coaches.Coach do
     field :image_url, :string
     field :title, :string
     field :languages, {:array, :string}
+    field :rapid, :integer
     field :blitz, :integer
     field :bullet, :integer
-    field :rapid, :integer
+    field :position, :integer
 
     # virtual fields
     field :score, :integer, virtual: true
@@ -44,7 +45,8 @@ defmodule BoardWise.Coaches.Coach do
       :languages,
       :rapid,
       :blitz,
-      :bullet
+      :bullet,
+      :position
     ])
     |> validate_required([:site, :username])
     |> unique_constraint(:site_username_unique, name: :site_username_unique)
