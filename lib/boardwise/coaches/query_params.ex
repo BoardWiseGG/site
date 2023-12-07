@@ -6,6 +6,7 @@ defmodule BoardWise.Coaches.QueryParams do
     :blitz_lte,
     :bullet_gte,
     :bullet_lte,
+    :titles,
     :languages,
     page_no: 1,
     page_size: 15

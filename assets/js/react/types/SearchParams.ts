@@ -1,9 +1,11 @@
 import { Mode } from "./Mode"
+import { Title } from "./Title"
 
 export type SearchParams = {
   rating: [number, number]
   modes: Mode[]
   languages: string[]
+  titles: Title[]
 }
 
 export const FIDE_RATING_MIN = 1500
@@ -13,6 +15,7 @@ export const defaultSearchParams: SearchParams = {
   rating: [FIDE_RATING_MIN, FIDE_RATING_MAX],
   modes: [Mode.RAPID, Mode.BLITZ, Mode.BULLET],
   languages: [],
+  titles: [],
 }
 
 export function toQueryParams(p: SearchParams) {
@@ -25,6 +28,10 @@ export function toQueryParams(p: SearchParams) {
 
   if (p.languages.length > 0) {
     queryParams["languages"] = p.languages.join(",")
+  }
+
+  if (p.titles) {
+    queryParams["titles"] = p.titles.join(",")
   }
 
   return queryParams

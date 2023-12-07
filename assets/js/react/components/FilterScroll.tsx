@@ -10,8 +10,10 @@ import LightningIcon from "../icons/Lightning"
 import RabbitIcon from "../icons/Rabbit"
 import RightArrowIcon from "../icons/RightArrow"
 import RisingGraphIcon from "../icons/RisingGraph"
+import TrophyIcon from "../icons/Trophy"
 import { Button } from "./Button"
 import { Mode } from "../types/Mode"
+import { Title } from "../types/Title"
 
 interface FilterOption {
   title: string
@@ -72,6 +74,15 @@ const filters: FilterOption[] = [
       return p
     },
     isEnabled: (p) => p.modes.length === 1 && p.modes.includes(Mode.BULLET),
+  },
+  {
+    title: "Titled Player",
+    Icon: TrophyIcon,
+    enable: (p) => {
+      p.titles = Object.keys(Title)
+      return p
+    },
+    isEnabled: (p) => p.titles.length > 0,
   },
 ]
 

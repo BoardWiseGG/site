@@ -49,6 +49,7 @@ defmodule BoardWise.Coaches do
         :bullet_gte => bullet_gte,
         :bullet_lte => bullet_lte,
         :languages => languages,
+        :titles => titles,
         :page_no => page_no,
         :page_size => page_size
       }) do
@@ -65,7 +66,8 @@ defmodule BoardWise.Coaches do
             ? +
             ? +
             ? +
-            (5 * (SELECT COUNT(*) FROM UNNEST(?) WHERE UNNEST = ANY(?)))
+            (5 * (SELECT COUNT(*) FROM UNNEST(?) WHERE UNNEST = ANY(?))) +
+            CASE WHEN ? = ANY(?) THEN 5 ELSE 0 END
             """,
             c.name,
             c.image_url,
@@ -73,7 +75,9 @@ defmodule BoardWise.Coaches do
             rating_fragment(c.blitz, ^blitz_gte, ^blitz_lte),
             rating_fragment(c.bullet, ^bullet_gte, ^bullet_lte),
             type(^languages, {:array, :string}),
-            c.languages
+            c.languages,
+            c.title,
+            type(^titles, {:array, :string})
           )
           |> selected_as(:score)
       }

@@ -9,8 +9,9 @@ import { Label } from "./Label"
 import { Modal } from "./Modal"
 import { Mode, getModeName } from "../types/Mode"
 import { SelectLanguage, SelectLanguageProps } from "./SelectLanguage"
+import { SelectTitle, SelectTitleProps } from "./SelectTitle"
 import { Slider } from "./Slider"
-
+import { Title } from "../types/Title"
 import {
   FIDE_RATING_MIN as RATING_MIN,
   FIDE_RATING_MAX as RATING_MAX,
@@ -94,6 +95,16 @@ export function FilterModal({
     required: "Please select at least one mode.",
   })
 
+  const proxyTitles = register("titles")
+  const registerTitles: Pick<SelectTitleProps, "defaultValue" | "onChange"> = {
+    ...proxyTitles,
+    defaultValue: defaultValues.titles,
+    onChange: (event, value) => {
+      event && proxyTitles.onChange(event)
+      setValue("titles", (value ?? []) as Title[])
+    },
+  }
+
   return (
     <Modal
       open={open}
@@ -135,12 +146,28 @@ export function FilterModal({
         </Field>
 
         <Field>
+          <Label htmlFor={`${idPrefix}-titles`}>Titles:</Label>
+          <p className="py-2 text-sm">
+            Prioritize coaches with one or more of the following titles. That
+            said, this is usually not an aspect of a coach that is important to
+            focus on.
+          </p>
+          <SelectTitle
+            id={`${idPrefix}-titles`}
+            slotProps={{
+              root: { className: "w-full" },
+            }}
+            {...registerTitles}
+            multiple
+          />
+        </Field>
+
+        <Field>
           <Label htmlFor={`${idPrefix}-rating`}>Rating:</Label>
           <p className="py-2 text-sm">
-            Find coaches that have a rating within the specified range. Keep in
-            mind, a higher rating does not necessarily mean a better coach{" "}
-            <i>for you</i>. If you are unsure of this or do not have any
-            preference, leave as is.
+            Find coaches that have a rating within the specified range. A higher
+            rating does not necessarily correspond to a better coach. If you are
+            unsure of this or do not have any preference, leave as is.
           </p>
           <div id={`${idPrefix}-rating`} className="mt-2 w-full px-4">
             <Controller
