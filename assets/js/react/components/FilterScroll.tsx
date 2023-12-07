@@ -6,13 +6,16 @@ import type { SearchParams } from "../types/SearchParams"
 import BulletIcon from "../icons/Bullet"
 import EnglishIcon from "../icons/English"
 import FilterIcon from "../icons/Filter"
+import KnightIcon from "../icons/Knight"
 import LightningIcon from "../icons/Lightning"
+import PawnIcon from "../icons/Pawn"
 import RabbitIcon from "../icons/Rabbit"
 import RightArrowIcon from "../icons/RightArrow"
 import RisingGraphIcon from "../icons/RisingGraph"
 import TrophyIcon from "../icons/Trophy"
 import { Button } from "./Button"
 import { Mode } from "../types/Mode"
+import { Site } from "../types/Site"
 import { Title } from "../types/Title"
 
 interface FilterOption {
@@ -76,10 +79,28 @@ const filters: FilterOption[] = [
     isEnabled: (p) => p.modes.length === 1 && p.modes.includes(Mode.BULLET),
   },
   {
+    title: "On Chess.com",
+    Icon: PawnIcon,
+    enable: (p) => {
+      p.sites.push(Site.CHESSCOM)
+      return p
+    },
+    isEnabled: (p) => p.sites.includes(Site.CHESSCOM),
+  },
+  {
+    title: "On Lichess",
+    Icon: KnightIcon,
+    enable: (p) => {
+      p.sites.push(Site.LICHESS)
+      return p
+    },
+    isEnabled: (p) => p.sites.includes(Site.LICHESS),
+  },
+  {
     title: "Titled Player",
     Icon: TrophyIcon,
     enable: (p) => {
-      p.titles = Object.keys(Title)
+      p.titles = Object.keys(Title) as Title[]
       return p
     },
     isEnabled: (p) => p.titles.length > 0,

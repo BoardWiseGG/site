@@ -28,8 +28,8 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        "radial-gradient/black":
-          "radial-gradient(circle at center, black 0%, transparent 50%)",
+        "radial-gradient/gray":
+          "radial-gradient(circle at center, #d3d3d3 0%, transparent 100%)",
       },
       borderRadius: {
         "4xl": "2.5rem",

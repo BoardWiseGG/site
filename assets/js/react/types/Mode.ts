@@ -4,6 +4,6 @@ export enum Mode {
   BULLET = "BULLET",
 }
 
-export const getModeName = (m: Mode) => {
-  return m.charAt(0) + m.toLowerCase().slice(1)
+export const getModeName = (mode: Mode) => {
+  return mode.charAt(0) + mode.toLowerCase().slice(1)
 }

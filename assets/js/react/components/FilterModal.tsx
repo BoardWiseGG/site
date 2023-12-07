@@ -10,6 +10,7 @@ import { Modal } from "./Modal"
 import { Mode, getModeName } from "../types/Mode"
 import { SelectLanguage, SelectLanguageProps } from "./SelectLanguage"
 import { SelectTitle, SelectTitleProps } from "./SelectTitle"
+import { Site, getSiteName } from "../types/Site"
 import { Slider } from "./Slider"
 import { Title } from "../types/Title"
 import {
@@ -77,6 +78,10 @@ export function FilterModal({
 
   // Registration
 
+  const registerSites = register("sites", {
+    required: "Please select at least one site.",
+  })
+
   const proxyLanguages = register("languages")
   const registerLanguages: Pick<
     SelectLanguageProps,
@@ -126,6 +131,21 @@ export function FilterModal({
       }}
     >
       <div className="flex flex-col gap-12">
+        <FieldSet error={errors?.sites?.message}>
+          <Label htmlFor={`${idPrefix}-rating`}>Sites:</Label>
+          <p className="py-2 text-sm">
+            Prioritize coaches from the selected site(s).
+          </p>
+          <div className="grid grid-cols-2 pt-2 text-sm">
+            {(Object.values(Site) as Site[]).map((s) => (
+              <div key={s} className="col-span-1 flex items-center gap-x-2">
+                <CheckBox value={s} {...registerSites} />
+                <div>{getSiteName(s)}</div>
+              </div>
+            ))}
+          </div>
+        </FieldSet>
+
         <Field>
           <Label htmlFor={`${idPrefix}-languages`}>
             Preferred Language(s):
@@ -161,6 +181,22 @@ export function FilterModal({
             multiple
           />
         </Field>
+
+        <FieldSet error={errors?.modes?.message}>
+          <Label htmlFor={`${idPrefix}-rating`}>Mode:</Label>
+          <p className="py-2 text-sm">
+            Prefer a specific game mode? We{"'"}ll prioritize coaches that
+            specialize in the modes selected.
+          </p>
+          <div className="grid grid-cols-3 pt-2 text-sm">
+            {(Object.values(Mode) as Mode[]).map((m) => (
+              <div key={m} className="col-span-1 flex items-center gap-x-2">
+                <CheckBox value={m} {...registerModes} />
+                <div>{getModeName(m)}</div>
+              </div>
+            ))}
+          </div>
+        </FieldSet>
 
         <Field>
           <Label htmlFor={`${idPrefix}-rating`}>Rating:</Label>
@@ -208,22 +244,6 @@ export function FilterModal({
             </div>
           </div>
         </Field>
-
-        <FieldSet error={errors?.modes?.message}>
-          <Label htmlFor={`${idPrefix}-rating`}>Mode:</Label>
-          <p className="py-2 text-sm">
-            Prefer a specific game mode? We{"'"}ll prioritize coaches that
-            specialize in the modes selected.
-          </p>
-          <div className="grid grid-cols-3 pt-2 text-sm">
-            {(Object.keys(Mode) as Mode[]).map((m) => (
-              <div key={m} className="col-span-1 flex items-center gap-x-2">
-                <CheckBox value={m} {...registerModes} />
-                <div>{getModeName(m)}</div>
-              </div>
-            ))}
-          </div>
-        </FieldSet>
       </div>
     </Modal>
   )

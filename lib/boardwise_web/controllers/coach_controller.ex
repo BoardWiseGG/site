@@ -15,6 +15,7 @@ defmodule BoardWiseWeb.CoachController do
       |> override_param(:bullet_lte, params, :integer)
       |> override_param(:languages, params, :strlist)
       |> override_param(:titles, params, :strlist)
+      |> override_param(:sites, params, :strlist)
       |> override_param(:page_no, params, :integer)
       |> override_param(:page_size, params, :integer)
 
