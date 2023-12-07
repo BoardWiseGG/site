@@ -78,7 +78,7 @@ defmodule BoardWise.Coaches do
           |> selected_as(:score)
       }
     )
-    |> order_by(desc: selected_as(:score))
+    |> order_by(desc: selected_as(:score), asc: :username)
     |> limit(^page_size)
     |> offset(^((page_no - 1) * page_size))
     |> Repo.all(prefix: @prefix)

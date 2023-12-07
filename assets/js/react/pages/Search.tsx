@@ -65,7 +65,7 @@ function SearchResults({ searchParams }: { searchParams: SearchParams }) {
                 <SearchResult
                   src={coach.image_url ?? ""}
                   title={coach.name ?? ""}
-                  subtitle={coach.name ?? ""}
+                  subtitle={coach.title ?? ""}
                   target="_blank"
                   href={
                     coach.site === "lichess"

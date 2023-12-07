@@ -14,6 +14,7 @@ defmodule BoardWiseWeb.CoachJSON do
       username: coach.username,
       name: coach.name,
       image_url: coach.image_url,
+      title: coach.title,
       languages: coach.languages,
       rapid: coach.rapid,
       blitz: coach.blitz,
